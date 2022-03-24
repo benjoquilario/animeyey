@@ -2,54 +2,60 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from '../../apis/axios';
 import AutoCard from '../Card/AutoCard';
+import DebounceInput from 'react-debounce-input';
 
 const SearchForm = ({ type }) => {
    const [query, setQuery] = useState('');
-   const [debounceQuery, setDebounceQuery] = useState(query);
    const [results, setResults] = useState([]);
    const [isOpen, setIsOpen] = useState(false);
 
    useEffect(() => {
-      const timerId = setTimeout(() => setDebounceQuery(query), 1000);
+      let isSubscribed = true;
 
-      return () => clearTimeout(timerId);
+      if (isSubscribed) {
+         if (!query || query.length < 3) {
+            return setResults([]);
+         } else {
+            setIsOpen(true);
+
+            const controller = new AbortController();
+            const signal = controller.signal;
+            axios
+               .get('/anime', {
+                  signal,
+                  params: {
+                     q: query,
+                  },
+               })
+               .then(res => {
+                  if (!res.status) {
+                     throw Error("Coulnt't not fetch the data");
+                  } else {
+                     setResults(res.data.data);
+                  }
+               })
+               .catch(err => {
+                  if (err.name === 'AbortError') {
+                     return 'Request Aborted ';
+                  }
+                  return err;
+               });
+
+            return () => controller.abort();
+         }
+      }
+
+      return () => (isSubscribed = false);
    }, [query]);
 
    useEffect(() => {
-      if (!query || query.length < 3) {
-         return setResults([]);
-      } else {
-         setIsOpen(true);
+      document.addEventListener('click', event => {
+         if (event.target.id !== 'column') setIsOpen(false);
+      });
 
-         const controller = new AbortController();
-         const signal = controller.signal;
-         axios
-            .get('/anime', {
-               signal,
-               params: {
-                  q: debounceQuery,
-               },
-            })
-            .then(res => {
-               if (!res.status) {
-                  throw Error("Coulnt't not fetch the data");
-               } else {
-                  setResults(res.data.data);
-               }
-            })
-            .catch(err => {
-               if (err.name === 'AbortError') {
-                  return 'Request Aborted ';
-               }
-               return err;
-            });
-
-         return () => controller.abort();
-      }
-   }, [debounceQuery, query]);
-
-   document.addEventListener('click', event => {
-      if (event.target.id !== 'column') setIsOpen(false);
+      document.removeEventListener('click', event => {
+         if (event.target.id !== 'column') setIsOpen(false);
+      });
    });
 
    return (
@@ -58,14 +64,14 @@ const SearchForm = ({ type }) => {
             <form className="relative shadow-2xl z-50">
                <div className="visually-hidden" aria-live="polite"></div>
                <div className="w-full">
-                  <input
-                     type="text"
-                     placeholder="search"
+                  <DebounceInput
+                     minLength={2}
                      className="w-full h-[32px] md:h-[38px] text-sm md:text-base px-[23px] leading-[46px]"
+                     debounceTimeout={1000}
                      onChange={event => setQuery(event.target.value)}
-                     value={query}
-                     required
+                     placeholder="search"
                   />
+
                   <Link to={`/search${type}${query}`}>
                      <button
                         className="bg-[#0a1f49] absolute top-0 right-[-1px] inline-flex justify-center items-center content-center h-[32px] md:h-[38px] px-[26px] py-[10px]"

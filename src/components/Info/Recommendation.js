@@ -24,7 +24,7 @@ const Recommendation = ({ malId }) => {
                   if (res.status !== 200) {
                      throw Error("Coulnt't not fetch the data");
                   } else {
-                     setResults(res.data.data);
+                     setResults(res.data.data.slice(0, 20));
                      setIsLoading(false);
                   }
                })

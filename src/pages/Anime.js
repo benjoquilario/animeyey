@@ -27,8 +27,6 @@ const Anime = () => {
                if (res.status !== 200) {
                   throw Error("Coulnt't not fetch the data");
                } else {
-                  console.log(res);
-
                   setResults(res);
                   setIsLoading(false);
                }
@@ -44,7 +42,10 @@ const Anime = () => {
          return () => controller.abort();
       }
 
-      return () => (isSubscribed = false);
+      return () => {
+         isSubscribed = false;
+         setResults([]);
+      };
    }, [malId]);
 
    return (

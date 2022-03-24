@@ -38,8 +38,6 @@ const CharactersActor = ({ malId }) => {
       return () => (isSubscribed = false);
    }, [malId]);
 
-   console.log(results);
-
    return (
       <div className="overflow-hidden">
          <div className="flex flex-wrap flex-col items-start justify-center">

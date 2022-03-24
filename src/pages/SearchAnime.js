@@ -42,10 +42,11 @@ const SearchAnime = () => {
 
       return () => (isSubscribed = false);
    }, [search]);
+
    return (
       <main>
          <Header>
-            <SearchForm type="/anime/" />
+            <SearchForm type="/" />
          </Header>
          <section className="mt-8 grid grid-cols-fill-mobile md:grid-cols-fill-20 gap-3 justify-center md:justify-between overflow-hidden px-2">
             {results.map((result, index) => {

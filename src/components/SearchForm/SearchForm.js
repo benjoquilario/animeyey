@@ -45,7 +45,10 @@ const SearchForm = ({ type }) => {
          }
       }
 
-      return () => (isSubscribed = false);
+      return () => {
+         isSubscribed = false;
+         setResults([]);
+      };
    }, [query]);
 
    useEffect(() => {

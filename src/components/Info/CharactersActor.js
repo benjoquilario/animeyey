@@ -35,7 +35,10 @@ const CharactersActor = ({ malId }) => {
          return () => controller.abort();
       }
 
-      return () => (isSubscribed = false);
+      return () => {
+         isSubscribed = false;
+         setResults([]);
+      };
    }, [malId]);
 
    return (

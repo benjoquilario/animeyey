@@ -42,7 +42,10 @@ const Recommendation = ({ malId }) => {
          return () => clearTimeout(timerId);
       }
 
-      return () => (isSubscribed = false);
+      return () => {
+         isSubscribed = false;
+         setResults([]);
+      };
    }, [malId]);
 
    return (

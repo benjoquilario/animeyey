@@ -40,7 +40,10 @@ const SearchAnime = () => {
          return () => controller.abort();
       }
 
-      return () => (isSubscribed = false);
+      return () => {
+         isSubscribed = false;
+         setResults([]);
+      };
    }, [search]);
 
    return (

@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Anime from './pages/Anime';
+import Home from './pages/Home';
+import SearchAnime from './pages/SearchAnime';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+   return (
+      <div className="App bg-[#151f2e] overflow-hidden">
+         <Router>
+            <Routes>
+               <Route path="/" element={<Home />} />
+               <Route path="/anime/:malId" element={<Anime />} />
+               <Route path="/search/:search" element={<SearchAnime />} />
+            </Routes>
+         </Router>
+      </div>
+   );
 }
 
 export default App;

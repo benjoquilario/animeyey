@@ -11,9 +11,9 @@ const Hero = ({ children }) => {
       >
          <div className="w-full max-w-6xl mx-auto flex h-full">
             <div className="w-full flex justify-center items-center content-center">
-               <div className="px-[20px] w-full flex flex-wrap justify-center items-center max-w-[100vw]">
+               <div className="px-[12px] w-full flex flex-wrap justify-center items-center max-w-[100vw]">
                   <div className="w-full text-white text-center ">
-                     <h2 className="text-4xl font-semibold tracking-wide">
+                     <h2 className="text-3xl md:text-4xl font-semibold tracking-wide">
                         Welcome to Anime
                         <span className="text-[#e74538]">HI</span>
                      </h2>
@@ -21,7 +21,7 @@ const Hero = ({ children }) => {
                         Millions of anime, manga and characters to discover.
                         Explore now.
                      </p>
-                     <p className="m-4 text-base">
+                     <p className="my-2 md:m-4 text-sm md:text-base">
                         Developed by Benjo Quilario powered by Jikan API
                      </p>
                   </div>

@@ -8,37 +8,28 @@ const CharactersActor = ({ malId }) => {
    const [isLoading, setIsLoading] = useState(true);
 
    useEffect(() => {
-      let isSubscribed = true;
+      const controller = new AbortController();
+      const signal = controller.signal;
 
-      if (isSubscribed) {
-         const controller = new AbortController();
-         const signal = controller.signal;
+      axios
+         .get(`/anime/${malId}/characters`, { signal })
+         .then(res => {
+            if (res.status !== 200) {
+               throw Error("Coulnt't not fetch the data");
+            } else {
+               setResults(res.data.data.slice(0, 8));
+               setIsLoading(false);
+            }
+         })
+         .catch(err => {
+            if (err.name === 'AbortError') {
+               return 'Request Aborted ';
+            } else {
+               setIsLoading(false);
+            }
+         });
 
-         axios
-            .get(`/anime/${malId}/characters`, { signal })
-            .then(res => {
-               if (res.status !== 200) {
-                  throw Error("Coulnt't not fetch the data");
-               } else {
-                  setResults(res.data.data.slice(0, 8));
-                  setIsLoading(false);
-               }
-            })
-            .catch(err => {
-               if (err.name === 'AbortError') {
-                  return 'Request Aborted ';
-               } else {
-                  setIsLoading(false);
-               }
-            });
-
-         return () => controller.abort();
-      }
-
-      return () => {
-         isSubscribed = false;
-         setResults([]);
-      };
+      return () => controller.abort();
    }, [malId]);
 
    return (

@@ -3,6 +3,7 @@ import Row from '../components/Row/Row';
 import { settings } from '../helper';
 import Hero from '../components/Hero/Hero';
 import SearchForm from '../components/SearchForm/SearchForm';
+import Hamburger from './Watch/Hamburger';
 
 const Home = () => {
    return (
@@ -17,6 +18,7 @@ const Home = () => {
             title="Most Favorited Characters"
             settings={settings}
          />
+         <Hamburger />
       </div>
    );
 };

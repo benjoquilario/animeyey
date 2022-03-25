@@ -5,60 +5,58 @@ const Header = ({ children }) => {
    const [isFixed, setIsFixed] = useState(false);
 
    useEffect(() => {
-      const headerAnimate = () => {
-         const doc = document.documentElement;
+      const doc = document.documentElement;
 
-         let currScroll;
-         let prevScroll = window.scrollY || doc.scrollTop;
-         let currDirection = 0;
-         let prevDirection = 0;
+      let currScroll;
+      let prevScroll = window.scrollY || doc.scrollTop;
+      let currDirection = 0;
+      let prevDirection = 0;
 
-         let threshold = 200;
-         let toggle;
+      let threshold = 200;
+      let toggle;
 
-         const toggleHeader = () => {
-            if (currDirection === 2 && currScroll > threshold) {
-               setIsFixed(true);
-            } else if (currDirection === 1) {
-               setIsFixed(false);
-            } else {
-               toggle = false;
-            }
+      const toggleHeader = () => {
+         if (currDirection === 2 && currScroll > threshold) {
+            setIsFixed(true);
+         } else if (currDirection === 1) {
+            setIsFixed(false);
+         } else {
+            toggle = false;
+         }
 
-            return toggle;
-         };
-
-         const checkScroll = () => {
-            currScroll = window.scrollY || doc.scrollTop;
-
-            if (currScroll > prevScroll) {
-               currDirection = 2;
-            } else {
-               currDirection = 1;
-            }
-
-            if (currDirection !== prevDirection) {
-               toggle = toggleHeader();
-            }
-
-            if (toggle) {
-               prevDirection = currDirection;
-            }
-
-            prevScroll = currScroll;
-         };
-
-         window.addEventListener('scroll', checkScroll);
+         return toggle;
       };
 
-      headerAnimate();
-   }, []);
+      const checkScroll = () => {
+         currScroll = window.scrollY || doc.scrollTop;
+
+         if (currScroll > prevScroll) {
+            currDirection = 2;
+         } else {
+            currDirection = 1;
+         }
+
+         if (currDirection !== prevDirection) {
+            toggle = toggleHeader();
+         }
+
+         if (toggle) {
+            prevDirection = currDirection;
+         }
+
+         prevScroll = currScroll;
+      };
+
+      window.addEventListener('scroll', checkScroll);
+
+      return () => window.removeEventListener('scroll', checkScroll);
+   });
 
    return (
       <header
          className={`${
-            isFixed ? 'top-[-56px]' : ''
-         } bg-[#152232] fixed top-0 left-0 w-full p-3 md:py-4 z-10 transition-all`}
+            isFixed ? 'top-[-56px]' : 'top-0'
+         } bg-[#152232] fixed left-0 w-full p-3 md:py-4 z-10 transition-all`}
       >
          <div className="w-full max-w-6xl mx-auto flex justify-between items-center">
             <Link

@@ -9,6 +9,7 @@ import Content from '../components/Info/Content';
 import Cover from '../components/Info/Cover';
 import Spinner from '../components/Spinner/Spinner';
 import Trailer from '../components/Info/Trailer';
+import Hamburger from './Watch/Hamburger';
 
 const Anime = () => {
    const { malId } = useParams();
@@ -16,36 +17,27 @@ const Anime = () => {
    const [isLoading, setIsLoading] = useState(true);
 
    useEffect(() => {
-      let isSubscribed = true;
+      const controller = new AbortController();
+      const signal = controller.signal;
+      axios
+         .get(`/anime/${malId}`, { signal })
+         .then(res => {
+            if (res.status !== 200) {
+               throw Error("Coulnt't not fetch the data");
+            } else {
+               setResults(res);
+               setIsLoading(false);
+            }
+         })
+         .catch(err => {
+            if (err.name === 'AbortError') {
+               return 'Request Aborted ';
+            } else {
+               setIsLoading(false);
+            }
+         });
 
-      if (isSubscribed) {
-         const controller = new AbortController();
-         const signal = controller.signal;
-         axios
-            .get(`/anime/${malId}`, { signal })
-            .then(res => {
-               if (res.status !== 200) {
-                  throw Error("Coulnt't not fetch the data");
-               } else {
-                  setResults(res);
-                  setIsLoading(false);
-               }
-            })
-            .catch(err => {
-               if (err.name === 'AbortError') {
-                  return 'Request Aborted ';
-               } else {
-                  setIsLoading(false);
-               }
-            });
-
-         return () => controller.abort();
-      }
-
-      return () => {
-         isSubscribed = false;
-         setResults([]);
-      };
+      return () => controller.abort();
    }, [malId]);
 
    return (
@@ -62,11 +54,13 @@ const Anime = () => {
                      poster={results.data.data.images.jpg.large_image_url}
                   />
                   <Cover
+                     malId={results.data.data.mal_id}
                      images={results.data.data.images.jpg.large_image_url}
                      rank={results.data.data.rank}
                      rating={results.data.data.rating}
                      title={results.data.data.title}
                      synopsis={results.data.data.synopsis}
+                     data={results.data.data}
                   />
                   <Content
                      malId={results.data.data.mal_id}
@@ -88,6 +82,8 @@ const Anime = () => {
                   />
                </Wrapper>
             )}
+
+            <Hamburger />
          </main>
       </div>
    );

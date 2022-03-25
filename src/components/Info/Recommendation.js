@@ -12,40 +12,31 @@ const Recommendation = ({ malId }) => {
    const [isLoading, setIsLoading] = useState(true);
 
    useEffect(() => {
-      let isSubscribed = true;
+      const controller = new AbortController();
+      const signal = controller.signal;
+      const timerId = setTimeout(() => {
+         axios
+            .get(`/anime/${malId}/recommendations`, { signal })
+            .then(res => {
+               if (res.status !== 200) {
+                  throw Error("Coulnt't not fetch the data");
+               } else {
+                  setResults(res.data.data.slice(0, 20));
+                  setIsLoading(false);
+               }
+            })
+            .catch(err => {
+               if (err.name === 'AbortError') {
+                  return 'Request Aborted ';
+               } else {
+                  setIsLoading(false);
+               }
+            });
 
-      if (isSubscribed) {
-         const controller = new AbortController();
-         const signal = controller.signal;
-         const timerId = setTimeout(() => {
-            axios
-               .get(`/anime/${malId}/recommendations`, { signal })
-               .then(res => {
-                  if (res.status !== 200) {
-                     throw Error("Coulnt't not fetch the data");
-                  } else {
-                     setResults(res.data.data.slice(0, 20));
-                     setIsLoading(false);
-                  }
-               })
-               .catch(err => {
-                  if (err.name === 'AbortError') {
-                     return 'Request Aborted ';
-                  } else {
-                     setIsLoading(false);
-                  }
-               });
+         return () => controller.abort();
+      }, 3000);
 
-            return () => controller.abort();
-         }, 3000);
-
-         return () => clearTimeout(timerId);
-      }
-
-      return () => {
-         isSubscribed = false;
-         setResults([]);
-      };
+      return () => clearTimeout(timerId);
    }, [malId]);
 
    return (

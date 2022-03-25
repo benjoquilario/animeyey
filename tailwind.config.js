@@ -3,7 +3,7 @@ module.exports = {
    theme: {
       extend: {
          gridTemplateColumns: {
-            'fill-20': 'repeat(auto-fill, 140px)',
+            'fill-20': 'repeat(auto-fill, 150px)',
             'fill-mobile': 'repeat(auto-fill, 112px)',
             'fill-columns': '75px auto',
             'fill-character': 'repeat(auto-fit,minmax(320px,1fr)',

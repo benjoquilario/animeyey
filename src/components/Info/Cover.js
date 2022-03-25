@@ -1,6 +1,8 @@
 import React from 'react';
 
-const Cover = ({ images, rank, rating, title, synopsis }) => {
+import Add from './Add';
+
+const Cover = ({ images, rank, rating, title, synopsis, data }) => {
    return (
       <div className="px-[12px] md:px-[40px] grid grid-cols-1 justify-items-center gap-[70px] md:grid-cols-[250px_1fr] md:gap-[18px]">
          <div className="min-w-[220px] w-[220px] h-auto">
@@ -13,9 +15,7 @@ const Cover = ({ images, rank, rating, title, synopsis }) => {
                   />
                </div>
                <div>
-                  <button className="text-sm text-white h-[37px] w-full flex items-center justify-center bg-[#e74538]">
-                     Add to List
-                  </button>
+                  <Add data={data} />
                </div>
             </div>
          </div>

@@ -3,63 +3,59 @@ import { Link } from 'react-router-dom';
 import axios from '../../apis/axios';
 import AutoCard from '../Card/AutoCard';
 import DebounceInput from 'react-debounce-input';
+import Spinner from '../Spinner/Spinner';
 
 const SearchForm = ({ type }) => {
    const [query, setQuery] = useState('');
    const [results, setResults] = useState([]);
    const [isOpen, setIsOpen] = useState(false);
+   const [isLoading, setIsLoading] = useState(true);
 
    useEffect(() => {
-      let isSubscribed = true;
+      if (!query || query.length < 3) {
+         setIsOpen(false);
+         return setResults([]);
+      } else {
+         setIsOpen(true);
 
-      if (isSubscribed) {
-         if (!query || query.length < 3) {
-            return setResults([]);
-         } else {
-            setIsOpen(true);
+         const controller = new AbortController();
+         const signal = controller.signal;
+         axios
+            .get('/anime', {
+               signal,
+               params: {
+                  q: query,
+               },
+            })
+            .then(res => {
+               if (!res.status) {
+                  throw Error("Coulnt't not fetch the data");
+               } else {
+                  setResults(res.data.data);
+                  setIsLoading(false);
+               }
+            })
+            .catch(err => {
+               if (err.name === 'AbortError') return 'Request Aborted';
+               else setIsLoading(false);
 
-            const controller = new AbortController();
-            const signal = controller.signal;
-            axios
-               .get('/anime', {
-                  signal,
-                  params: {
-                     q: query,
-                  },
-               })
-               .then(res => {
-                  if (!res.status) {
-                     throw Error("Coulnt't not fetch the data");
-                  } else {
-                     setResults(res.data.data);
-                  }
-               })
-               .catch(err => {
-                  if (err.name === 'AbortError') {
-                     return 'Request Aborted ';
-                  }
-                  return err;
-               });
+               return err;
+            });
 
-            return () => controller.abort();
-         }
+         return () => controller.abort();
       }
-
-      return () => {
-         isSubscribed = false;
-         setResults([]);
-      };
    }, [query]);
 
    useEffect(() => {
-      document.addEventListener('click', event => {
+      const openSearchResult = event => {
+         console.log(event.target.id);
          if (event.target.id !== 'column') setIsOpen(false);
-      });
+      };
 
-      document.removeEventListener('click', event => {
-         if (event.target.id !== 'column') setIsOpen(false);
-      });
-   });
+      window.addEventListener('click', openSearchResult);
+
+      return () => window.removeEventListener('click', openSearchResult);
+   }, []);
 
    return (
       <div className="relative w-full max-w-[500px]">
@@ -70,11 +66,10 @@ const SearchForm = ({ type }) => {
                   <DebounceInput
                      minLength={2}
                      className="w-full h-[32px] md:h-[38px] text-sm md:text-base px-[23px] leading-[46px]"
-                     debounceTimeout={1000}
+                     debounceTimeout={500}
                      onChange={event => setQuery(event.target.value)}
                      placeholder="search"
                   />
-
                   <Link to={`/search${type}${query}`}>
                      <button
                         className="bg-[#0a1f49] absolute top-0 right-[-1px] inline-flex justify-center items-center content-center h-[32px] md:h-[38px] px-[26px] py-[10px]"
@@ -102,13 +97,19 @@ const SearchForm = ({ type }) => {
             </form>
             <div
                className={`${
-                  isOpen ? '' : 'hidden'
-               } absolute top-[40px] w-full max-h-[600px] overflow-auto block bg-[#151f2e] z-50`}
+                  isOpen ? 'block' : 'hidden'
+               } absolute top-[35px] md:top-[37px] w-full max-h-[600px] overflow-auto  bg-[#151f2e] z-50`}
                id="column"
             >
-               {results.map((result, index) => {
-                  return <AutoCard key={index} data={result} />;
-               })}
+               {isLoading ? (
+                  <Spinner />
+               ) : (
+                  <>
+                     {results.map((result, index) => {
+                        return <AutoCard key={index} data={result} />;
+                     })}
+                  </>
+               )}
             </div>
          </div>
       </div>

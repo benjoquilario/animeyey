@@ -10,29 +10,25 @@ const Row = ({ title, fetchUrl, settings }) => {
    const [results, setResults] = useState([]);
 
    useEffect(() => {
-      let isSubscribed = true;
+      const controller = new AbortController();
+      const signal = controller.signal;
+      axios
+         .get(fetchUrl, { signal })
+         .then(res => {
+            if (!res.status) {
+               throw Error("Coulnt't not fetch the data");
+            } else {
+               setResults(res.data.data);
+            }
+         })
+         .catch(err => {
+            if (err.name === 'AbortError') {
+               return 'Request Aborted ';
+            }
+            return err;
+         });
 
-      if (isSubscribed) {
-         const controller = new AbortController();
-         const signal = controller.signal;
-         axios
-            .get(fetchUrl, { signal })
-            .then(res => {
-               if (!res.status) {
-                  throw Error("Coulnt't not fetch the data");
-               } else {
-                  setResults(res.data.data);
-               }
-            })
-            .catch(err => {
-               if (err.name === 'AbortError') {
-                  return 'Request Aborted ';
-               }
-               return err;
-            });
-
-         return () => controller.abort();
-      }
+      return () => controller.abort();
    }, [fetchUrl]);
 
    return (

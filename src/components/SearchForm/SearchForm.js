@@ -48,7 +48,6 @@ const SearchForm = ({ type }) => {
 
    useEffect(() => {
       const openSearchResult = event => {
-         console.log(event.target.id);
          if (event.target.id !== 'column') setIsOpen(false);
       };
 

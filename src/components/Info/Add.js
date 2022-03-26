@@ -2,24 +2,25 @@ import React, { useContext } from 'react';
 import { GlobalContext } from '../../context/GlobalState';
 
 const Add = ({ data }) => {
-   const { addDataToWatchlist, watchlist, watched } = useContext(GlobalContext);
+   const { addDataToPlanToWatch, planToWatch, completed } =
+      useContext(GlobalContext);
 
-   let storedData = watchlist.find(o => o.mal_id === data.mal_id);
-   let storedDataWatched = watched.find(o => o.id === data.mal_id);
+   let storedData = planToWatch.find(o => o.mal_id === data.mal_id);
+   let storedDataCompleted = completed.find(o => o.id === data.mal_id);
 
-   const watchListDisabled = storedData
+   const planToWatchDisabled = storedData
       ? true
-      : storedDataWatched
+      : storedDataCompleted
       ? true
       : false;
 
    return (
       <button
          className="text-sm text-white h-[37px] w-full flex items-center justify-center bg-[#e74538]"
-         onClick={() => addDataToWatchlist(data)}
-         disabled={watchListDisabled}
+         onClick={() => addDataToPlanToWatch(data)}
+         disabled={planToWatchDisabled}
       >
-         {watchListDisabled ? 'Watching' : 'Add to List'}
+         {planToWatchDisabled ? 'Watching' : 'Add to List'}
       </button>
    );
 };

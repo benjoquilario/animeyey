@@ -1,37 +1,45 @@
+import {
+   addToPlanToWatch,
+   removeFromPlanToWatch,
+   addToCompleted,
+   moveToPlanToWatch,
+   removeFromCompleted,
+} from './ActionTypes';
+
 const AppReducer = (state, action) => {
    switch (action.type) {
-      case 'ADD_DATA_TO_WATCHLIST':
+      case addToPlanToWatch:
          return {
             ...state,
-            watchlist: [action.payload, ...state.watchlist],
+            planToWatch: [action.payload, ...state.planToWatch],
          };
-      case 'REMOVE_DATA_FROM_WATCHLIST':
+      case removeFromPlanToWatch:
          return {
             ...state,
-            watchlist: state.watchlist.filter(
+            planToWatch: state.planToWatch.filter(
                data => data.id !== action.payload
             ),
          };
-      case 'ADD_DATA_TO_WATCHED':
+      case addToCompleted:
          return {
             ...state,
-            watchlist: state.watchlist.filter(
+            planToWatch: state.planToWatch.filter(
                data => data.id !== action.payload.id
             ),
-            watched: [action.payload, ...state.watched],
+            completed: [action.payload, ...state.complete],
          };
-      case 'MOVE_TO_WATCHLIST':
+      case moveToPlanToWatch:
          return {
             ...state,
-            watched: state.watched.filter(
+            complete: state.complete.filter(
                data => data.id !== action.payload.id
             ),
-            watchlist: [action.payload, ...state.watchlist],
+            planToWatch: [action.payload, ...state.watchlist],
          };
-      case 'REMOVE_FROM_WATCHED':
+      case removeFromCompleted:
          return {
             ...state,
-            watched: state.watched.filter(data => data.id !== action.payload),
+            complete: state.complete.filter(data => data.id !== action.payload),
          };
       default:
          return state;

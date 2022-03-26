@@ -1,12 +1,20 @@
 import React, { createContext, useReducer, useEffect } from 'react';
 import AppReducer from './AppReducer';
 
+import {
+   addToPlanToWatch,
+   removeFromPlanToWatch,
+   addToCompleted,
+   moveToPlanToWatch,
+   removeFromCompleted,
+} from './ActionTypes';
+
 const initialstate = {
-   watchlist: localStorage.getItem('watchlist')
-      ? JSON.parse(localStorage.getItem('watchlist'))
+   planToWatch: localStorage.getItem('planToWatch')
+      ? JSON.parse(localStorage.getItem('planToWatch'))
       : [],
-   watched: localStorage.getItem('watched')
-      ? JSON.parse(localStorage.getItem('watched'))
+   completed: localStorage.getItem('completed')
+      ? JSON.parse(localStorage.getItem('completed'))
       : [],
 };
 
@@ -16,40 +24,40 @@ export const GlobalProvider = props => {
    const [state, dispatch] = useReducer(AppReducer, initialstate);
 
    useEffect(() => {
-      localStorage.setItem('watchlist', JSON.stringify(state.watchlist));
-      localStorage.setItem('watched', JSON.stringify(state.watched));
+      localStorage.setItem('planToWatch', JSON.stringify(state.planToWatch));
+      localStorage.setItem('completed', JSON.stringify(state.completed));
    }, [state]);
 
-   const addDataToWatchlist = data => {
-      dispatch({ type: 'ADD_DATA_TO_WATCHLIST', payload: data });
+   const addDataToPlanToWatch = data => {
+      dispatch({ type: addToPlanToWatch, payload: data });
    };
 
-   const removeDataFromWatchlist = id => {
-      dispatch({ type: 'REMOVE_DATA_FROM_WATCHLIST', payload: id });
+   const removeDataFromPlanToWatch = id => {
+      dispatch({ type: removeFromPlanToWatch, payload: id });
    };
 
-   const addDataToWatched = data => {
-      dispatch({ type: 'ADD_DATA_TO_WATCHED', payload: data });
+   const addDataToCompleted = data => {
+      dispatch({ type: addToCompleted, payload: data });
    };
 
-   const moveToWatchlist = data => {
-      dispatch({ type: 'MOVE_TO_WATCHLIST', payload: data });
+   const moveDataToPlanToWatch = data => {
+      dispatch({ type: moveToPlanToWatch, payload: data });
    };
 
-   const removeFromWatched = id => {
-      dispatch({ type: 'REMOVE_FROM_WATCHED', payload: id });
+   const removeDataFromCompleted = id => {
+      dispatch({ type: removeFromCompleted, payload: id });
    };
 
    return (
       <GlobalContext.Provider
          value={{
-            watchlist: state.watchlist,
-            watched: state.watched,
-            addDataToWatchlist,
-            removeDataFromWatchlist,
-            addDataToWatched,
-            moveToWatchlist,
-            removeFromWatched,
+            planToWatch: state.planToWatch,
+            completed: state.completed,
+            addDataToPlanToWatch,
+            removeDataFromPlanToWatch,
+            addDataToCompleted,
+            moveDataToPlanToWatch,
+            removeDataFromCompleted,
          }}
       >
          {props.children}

@@ -1,70 +1,55 @@
-# Getting Started with Create React App
+<p align="center"><a href="https://github.com/benjoquilario/animehi"><img src="./public/images/animehii.png" width="150"></a></p>
+<h2 align="center"><b>Anime HI</b></h2>
+<h4 align="center">An Web app for anime information</h4>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Screenshots
 
-## Available Scripts
+[<img src="./finished/screenshots/screenshot-1.png" width=160>](./finished/screenshots/screenshot-1.png)
+[<img src="./finished/screenshots/screenshot-2.png" width=160>](./finished/screenshots/screenshot-2.png)
+[<img src="./finished/screenshots/screenshot-3.png" width=160>](./finished/screenshots/screenshot-3.png)
+[<img src="./finished/screenshots/screenshot-4.png" width=160>](./finished/screenshots/screenshot-4.png)
 
-In the project directory, you can run:
+## Description
 
-### `npm start`
+AnimeHi a connected api website, powered by JikanAPIv4
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+-  Search Anime
+-  Suggestion keyword search
+-  Top Animes
+-  Anime Movies
+-  Watch Progress
+-  Add To Plan To Watch
+-  Add to completed anime
+-  Dark Mode Support with system
 
-### `npm test`
+### Coming Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+-  Different list of Manga/ Character / People
+-  Episodes for anime info
+-  … and many more
 
-### `npm run build`
+## Contribution
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Your ideas, translations, design changes, code cleaning, real heavy code changes, or any help are always welcome. The more is the contribution, the better it gets.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+[Pull requests](https://github.com/benjoquilario/animehi/pulls) will be reviewed
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Built with
 
-### `npm run eject`
+-  [Reach JS](https://reactjs.org/)
+-  [Tailwind CSS](https://tailwindcss.com/): for designing the components
+-  [Context API](https://reactjs.org/docs/context.html): for state management
+-  [Jikan API](https://docs.api.jikan.moe/): for Content
+-  [React Slick](https://react-slick.neostack.com/): for carousel
+-  [react-debounce-input](https://www.npmjs.com/package/react-debounce-input): for debouncing search input
+-  [Netlify](https://www.netlify.com/): for hosting
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Author
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Benjo M. Quilario
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+-  Portfolio: [BenjoQuilario](https://benjoquilario.me/)
+-  Twitter: [@iambenjo](https://twitter.com/iam_benjo)
+-  Github: [@benjoquilario](https://github.com/benjoquilario)

@@ -4,8 +4,11 @@ import SearchForm from '../../components/SearchForm/SearchForm';
 import Header from '../../components/Header/Header';
 import { Link } from 'react-router-dom';
 
-const WatchList = () => {
-   const { watchlist } = useContext(GlobalContext);
+const PlanToWatch = () => {
+   const { planToWatch } = useContext(GlobalContext);
+
+   console.log(planToWatch);
+
    return (
       <div className="h-full w-full">
          <Header>
@@ -13,13 +16,15 @@ const WatchList = () => {
          </Header>
 
          <div className="mt-[70px]">
-            <h2 className="text-white my-4 ml-5 text-lg">My List</h2>
-            <div className="grid grid-cols-fill-20 gap-2">
-               {watchlist.map((watchl, index) => {
+            <h2 className="text-white my-7 ml-5 text-2xl text-center">
+               My List
+            </h2>
+            <div className="grid grid-cols-fill-mobile justify-center md:grid-cols-fill-20 gap-2">
+               {planToWatch.map((watchl, index) => {
                   return (
                      <div
                         key={index}
-                        className="relative w-[112px] min-w-[112px] sm:w-[118px] sm:min-w-[118px] overflow-visible flex flex-wrap rounded-[6px] content-start mx-auto"
+                        className="relative w-[112px] min-w-[112px] sm:w-[118px] sm:min-w-[118px] overflow-visible flex flex-wrap rounded-[6px] content-start mx-auto mb-[12px]"
                      >
                         <div className="relative overflow-hidden w-full rounded-[6px] h-[150px] sm:h-[165px] ">
                            <div className="relative w-full h-full hover:opacity-80 transition-opacity">
@@ -64,4 +69,4 @@ const WatchList = () => {
    );
 };
 
-export default WatchList;
+export default PlanToWatch;

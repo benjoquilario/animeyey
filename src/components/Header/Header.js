@@ -56,7 +56,7 @@ const Header = ({ children }) => {
       <header
          className={`${
             isFixed ? 'top-[-56px]' : 'top-0'
-         } bg-[#152232] fixed left-0 w-full p-3 md:py-4 z-10 transition-all`}
+         } bg-[#152232] fixed left-0 w-full p-3 md:py-4 z-10 transition-all shadow-[0_0_12px_-5px_rgba(0,0,0,0.2)]`}
       >
          <div className="w-full max-w-6xl mx-auto flex justify-between items-center">
             <Link

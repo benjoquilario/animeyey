@@ -1,5 +1,4 @@
 <p align="center"><a href="https://github.com/benjoquilario/animehi"><img src="./finished/animehii.png" width="150"></a></p>
-<h2 align="center"><b>Anime HI</b></h2>
 <h4 align="center">An Web app for anime information</h4>
 
 ## Screenshots

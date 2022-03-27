@@ -1,6 +1,7 @@
 <p align="center"><a href="https://github.com/benjoquilario/animehi"><img src="./finished/animehii.png" width="150"></a></p>
 <h2 align="center"><b>ANIME - HI</b></h2>
 <h4 align="center">An Web application for a simple and useful anime information.</h4>
+<p align="center"><a href="https://animehi.netlify.app/">Visit Site</a></p>
 
 ## Screenshots
 

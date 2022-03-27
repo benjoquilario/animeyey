@@ -1,4 +1,4 @@
-<p align="center" style="margin-top: 30px!important"><a href="https://github.com/benjoquilario/animehi"><img src="./finished/animehii.png" width="150"></a></p>
+<p align="center"><a href="https://github.com/benjoquilario/animehi"><img src="./finished/animehii.png" width="150"></a></p>
 <h4 align="center">An Web application for a simple and useful anime information.</h4>
 
 ## Screenshots

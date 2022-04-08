@@ -33,8 +33,11 @@ const Row = ({ title, fetchUrl, settings }) => {
 
    return (
       <section className="mt-8">
-         <h2 className="text-white text-lg md:text-2xl font-semibold ml-2 mb-[20px] whitespace-nowrap uppercase">
-            {title}
+         <h2 className="relative text-white font-semibold ml-2 mb-[20px] whitespace-nowrap uppercase">
+            <span className="ml-3 text-base md:text-[21px] tracking-tighter">
+               {title}
+            </span>
+            <span className="absolute top-0 left-0 h-full w-[4px] bg-[#e74538]"></span>
          </h2>
          <div className="relative">
             <Slider {...settings}>

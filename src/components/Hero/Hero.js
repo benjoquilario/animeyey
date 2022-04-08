@@ -4,7 +4,7 @@ const Hero = ({ children }) => {
    return (
       <section
          style={{
-            backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), url('/images/background.jpg')`,
+            backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), url('/images/bg2.jpg')`,
             backgroundPosition: '50%',
          }}
          className="shadow-heroShadow h-auto min-h-[80vh] w-full items-center flex flex-wrap justify-center bg-no-repeat bg-cover"

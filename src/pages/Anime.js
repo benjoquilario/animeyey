@@ -12,81 +12,86 @@ import Trailer from '../components/Info/Trailer';
 import Hamburger from './Watch/Hamburger';
 
 const Anime = () => {
-   const { malId } = useParams();
-   const [results, setResults] = useState([]);
-   const [isLoading, setIsLoading] = useState(true);
+  const { malId } = useParams();
+  const [result, setResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-   useEffect(() => {
-      const controller = new AbortController();
-      const signal = controller.signal;
-      axios
-         .get(`/anime/${malId}`, { signal })
-         .then(res => {
-            if (res.status !== 200) {
-               throw Error("Coulnt't not fetch the data");
-            } else {
-               setResults(res);
-               setIsLoading(false);
-            }
-         })
-         .catch(err => {
-            if (err.name === 'AbortError') {
-               return 'Request Aborted ';
-            } else {
-               setIsLoading(false);
-            }
-         });
+  useEffect(() => {
+    if (!result || (Array.isArray(result) && result.length === 0)) return;
 
-      return () => controller.abort();
-   }, [malId]);
+    document.title = result.data.data.title;
+  }, [result]);
 
-   return (
-      <div className="min-h-screen">
-         <Header>
-            <SearchForm type="/" />
-         </Header>
-         <main>
-            {isLoading ? (
-               <Spinner />
-            ) : (
-               <Wrapper>
-                  <Banner
-                     poster={results.data.data.images.jpg.large_image_url}
-                  />
-                  <Cover
-                     malId={results.data.data.mal_id}
-                     images={results.data.data.images.jpg.large_image_url}
-                     rank={results.data.data.rank}
-                     rating={results.data.data.rating}
-                     title={results.data.data.title}
-                     synopsis={results.data.data.synopsis}
-                     data={results.data.data}
-                  />
-                  <Content
-                     malId={results.data.data.mal_id}
-                     score={results.data.data.score}
-                     popularity={results.data.data.popularity}
-                     status={results.data.data.status}
-                     format={results.data.data.type}
-                     genres={results.data.data.genres}
-                     duration={results.data.data.duration}
-                     source={results.data.data.source}
-                     episodes={results.data.data.episodes}
-                     season={results.data.data.season}
-                     favorites={results.data.data.favorites}
-                     studios={results.data.data.studios}
-                  />
-                  <Trailer
-                     title={results.data.data.title}
-                     trailer={results.data.data.trailer.embed_url}
-                  />
-               </Wrapper>
-            )}
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
 
-            <Hamburger />
-         </main>
-      </div>
-   );
+    axios
+      .get(`/anime/${malId}`, { signal })
+      .then(res => {
+        if (res.status !== 200) {
+          throw Error("Coulnt't not fetch the data");
+        } else {
+          setResult(res);
+          setIsLoading(false);
+        }
+      })
+      .catch(err => {
+        if (err.name === 'AbortError') {
+          return 'Request Aborted ';
+        } else {
+          setIsLoading(false);
+        }
+      });
+
+    return () => controller.abort();
+  }, [malId]);
+
+  return (
+    <div className="min-h-screen">
+      <Header>
+        <SearchForm type="/" />
+      </Header>
+      <main>
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <Wrapper>
+            <Banner poster={result.data.data.images.jpg.large_image_url} />
+            <Cover
+              malId={result.data.data.mal_id}
+              images={result.data.data.images.jpg.large_image_url}
+              rank={result.data.data.rank}
+              rating={result.data.data.rating}
+              title={result.data.data.title}
+              synopsis={result.data.data.synopsis}
+              data={result.data.data}
+            />
+            <Content
+              malId={result.data.data.mal_id}
+              score={result.data.data.score}
+              popularity={result.data.data.popularity}
+              status={result.data.data.status}
+              format={result.data.data.type}
+              genres={result.data.data.genres}
+              duration={result.data.data.duration}
+              source={result.data.data.source}
+              episodes={result.data.data.episodes}
+              season={result.data.data.season}
+              favorites={result.data.data.favorites}
+              studios={result.data.data.studios}
+            />
+            <Trailer
+              title={result.data.data.title}
+              trailer={result.data.data.trailer.embed_url}
+            />
+          </Wrapper>
+        )}
+
+        <Hamburger />
+      </main>
+    </div>
+  );
 };
 
 export default Anime;

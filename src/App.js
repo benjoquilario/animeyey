@@ -8,22 +8,22 @@ import SearchAnime from './pages/SearchAnime';
 import PlanToWatch from './pages/Watch/PlanToWatch';
 
 function App() {
-   return (
-      <GlobalProvider>
-         <div className="App min-h-screen bg-[#151f2e] overflow-hidden">
-            <Router>
-               <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/anime/:malId" element={<Anime />} />.
-                  <Route path="/search/" element={<SearchError />} />
-                  <Route path="/search/:search" element={<SearchAnime />} />
-                  <Route path="/plantowatch" element={<PlanToWatch />} />
-                  <Route path="*" element={<NotFound />} />
-               </Routes>
-            </Router>
-         </div>
-      </GlobalProvider>
-   );
+  return (
+    <GlobalProvider>
+      <div className="App min-h-screen bg-[#151f2e] overflow-hidden">
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/anime/:malId" element={<Anime />} />.
+            <Route path="/search/" element={<SearchError />} />
+            <Route path="/search/:search" element={<SearchAnime />} />
+            <Route path="/plantowatch" element={<PlanToWatch />} />
+            <Route path="/*" element={<NotFound />} />
+          </Routes>
+        </Router>
+      </div>
+    </GlobalProvider>
+  );
 }
 
 export default App;
